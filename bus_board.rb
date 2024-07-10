@@ -2,7 +2,6 @@ require 'net/http'
 require 'uri'
 require 'json'
 
-
 class BusStop
 
   def initialize(id)
@@ -11,20 +10,9 @@ class BusStop
   end
 
   def web_request()
-    require 'net/http'
-
     uri = URI("https://api.tfl.gov.uk/StopPoint/#{@id}/Arrivals")
 
-
-    request = Net::HTTP::Get.new(uri.request_uri)
-
-    # Request headers
-    request['Cache-Control'] = 'no-cache'
-
-
-    response = Net::HTTP.start(uri.host, uri.port, :use_ssl => uri.scheme == 'https') do |http|
-      http.request(request)
-    end
+    response = Net::HTTP.get_response(uri)
 
     json_file = JSON.parse(response.body)
 
