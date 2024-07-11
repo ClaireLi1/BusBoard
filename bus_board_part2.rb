@@ -27,10 +27,11 @@ class BusStop
   def fetch_buses_info
     web_address = "https://api.tfl.gov.uk/StopPoint/#{@stop_id}/Arrivals"
     buses_info = web_request(web_address)
-    @buses_info_sorted = buses_info.sort_by { |bus| bus["timeToStation"] }
+    buses_info.sort_by { |bus| bus["timeToStation"] }
   end
 
   def bus_prediction(number_of_buses)
+    @buses_info_sorted = fetch_buses_info
 
     next_buses = @buses_info_sorted.first(number_of_buses)
 
@@ -102,6 +103,5 @@ stop_id_list = address.get_nearest_stops
 
 for stop_id in stop_id_list do
   stop_instance = BusStop.new(stop_id)
-  stop_instance.fetch_buses_info
   stop_instance.bus_prediction(1)
 end
