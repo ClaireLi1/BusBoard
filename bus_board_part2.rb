@@ -57,18 +57,24 @@ class Address
 
     json_file = web_request(web_address)
 
-    @longitude = json_file["result"]["longitude"]
-    @latitude = json_file["result"]["latitude"]
+    longitude = json_file["result"]["longitude"]
+    latitude = json_file["result"]["latitude"]
+
+    [longitude, latitude]
 
   end
 
   def get_stop_types
     web_address = 'https://api.tfl.gov.uk/StopPoint/Meta/StopTypes'
     stop_types = web_request(web_address)
-    @stop_types_str = stop_types.join(',')
+    stop_types.join(',')
   end
 
   def get_nearest_stops
+    @stop_types_str ||= get_stop_types
+    if @longitude.nil? || @latitude.nil?
+      @longitude, @latitude = get_location
+    end
 
     stop_id_list = []
 
