@@ -3,7 +3,9 @@ require 'uri'
 require 'json'
 
 module WebRequest
-  def web_request(uri)
+  def web_request(web_address)
+
+    uri = URI(web_address)
 
     response = Net::HTTP.get_response(uri)
 
@@ -23,8 +25,8 @@ class BusStop
   end
 
   def fetch_buses_info
-    uri = URI("https://api.tfl.gov.uk/StopPoint/#{@stop_id}/Arrivals")
-    @buses_info = web_request(uri)
+    web_address = "https://api.tfl.gov.uk/StopPoint/#{@stop_id}/Arrivals"
+    @buses_info = web_request(web_address)
   end
 
   def bus_prediction(number_of_buses)
@@ -50,9 +52,9 @@ class Address
   end
   def get_location
 
-    uri = URI("https://api.postcodes.io/postcodes/#{@postcode}")
+    web_address = "https://api.postcodes.io/postcodes/#{@postcode}"
 
-    json_file = web_request(uri)
+    json_file = web_request(web_address)
 
     @longitude = json_file["result"]["longitude"]
     @latitude = json_file["result"]["latitude"]
@@ -60,8 +62,8 @@ class Address
   end
 
   def get_stop_types
-    uri = URI('https://api.tfl.gov.uk/StopPoint/Meta/StopTypes')
-    stop_types = web_request(uri)
+    web_address = 'https://api.tfl.gov.uk/StopPoint/Meta/StopTypes'
+    stop_types = web_request(web_address)
     @stop_types_str = stop_types.join(',')
   end
 
@@ -69,8 +71,8 @@ class Address
 
     stop_id_list = []
 
-    uri = URI("https://api.tfl.gov.uk/StopPoint?stopTypes=#{@stop_types_str}&lat=#{@latitude}&lon=#{@longitude}")
-    stops_info = web_request(uri)
+    web_address = "https://api.tfl.gov.uk/StopPoint?stopTypes=#{@stop_types_str}&lat=#{@latitude}&lon=#{@longitude}"
+    stops_info = web_request(web_address)
 
     stop_points_sorted = stops_info["stopPoints"].sort_by { |stop| stop["distance"] }
     stop_points_nearest= stop_points_sorted.first(1)
