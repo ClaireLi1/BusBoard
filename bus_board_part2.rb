@@ -32,7 +32,7 @@ class BusStop
     next_buses = sorted_buses.first(number_of_buses)
 
     next_buses.each do |bus|
-      puts "Route: #{bus['lineId']}, Destination: #{bus['destinationName']}, Arrives in: #{bus['timeToStation']/60} minutes"
+      puts "StopID: #{@stop_id}, Route: #{bus['lineId']}, Destination: #{bus['destinationName']}, Arrives in: #{bus['timeToStation']/60} minutes"
     end
 
   end
