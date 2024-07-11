@@ -1,0 +1,2 @@
+class BusStop < ApplicationRecord
+end
