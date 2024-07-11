@@ -98,8 +98,6 @@ end
 puts 'Enter your postcode'
 postcode = gets.chomp
 address = Address.new(postcode)
-address.get_location
-address.get_stop_types
 stop_id_list = address.get_nearest_stops
 
 for stop_id in stop_id_list do
