@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  include WebRequest
+  include WebRequestHelper
   def initialize(postcode)
     @postcode = postcode
     @longitude = nil

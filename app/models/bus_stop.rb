@@ -1,5 +1,5 @@
 class BusStop < ApplicationRecord
-  include WebRequest
+  include WebRequestHelper
 
   attr_accessor :stop_id, :buses_info
 
