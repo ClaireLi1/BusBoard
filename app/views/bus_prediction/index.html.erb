@@ -1,0 +1,24 @@
+<h1>BusBoard</h1>
+<%= form_with url: bus_prediction_from_postcode_path, local: true, data: { turbo: false } do %>
+  <div>
+    <%= label_tag :postcode, "Postcode", class: "form-label" %>
+    <%= text_field_tag :postcode, nil, class: "form-control", id: "inputPostcode", aria: { describedby: "postcodeHelpBlock" } %>
+  </div>
+  <div id="postcodeHelpBlock" class="form-text">
+    Please enter a valid postcode as a combination of capital letters and numbers without any spaces. (e.g. NW51TL)
+  </div>
+  <div>
+    <%= submit_tag "Get BusBoard", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div id="result">
+  <% if @results.present? %>
+    <ul>
+      <% @results.each do |result| %>
+        <li><%= result %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>
+

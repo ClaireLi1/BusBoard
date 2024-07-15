@@ -20,7 +20,8 @@ class BusStop < ApplicationRecord
     next_buses = @buses_info_sorted.first(number_of_buses)
 
     next_buses.each do |bus|
-      puts "StopID: #{@stop_id}, Route: #{bus['lineId']}, Destination: #{bus['destinationName']}, Arrives in: #{bus['timeToStation']/60} minutes"
+      result = "StopID: #{@stop_id}, Route: #{bus['lineId']}, Destination: #{bus['destinationName']}, Arrives in: #{bus['timeToStation']/60} minutes"
+      return result
     end
 
   end

@@ -1,3 +1,6 @@
+require 'net/http'
+require 'uri'
+require 'json'
 module WebRequest
   def web_request(web_address)
 
